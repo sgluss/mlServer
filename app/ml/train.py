@@ -1,4 +1,4 @@
-import os, sys, re
+import os, sys, re, pickle
 
 import pandas as pd
 import numpy as np
@@ -8,12 +8,8 @@ from sklearn import preprocessing
 # import classifier
 from sklearn import neighbors
 
-# Model Persistence
-import pickle
-
 # project dependencies
 PATH_TO_HERE = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
-sys.path.append(PATH_TO_HERE + '../')
 
 PATH_TO_DATA = PATH_TO_HERE + '../../datasets/'
 PATH_TO_ARTIFACTS = PATH_TO_HERE + 'artifacts/'
@@ -101,7 +97,7 @@ def evaluate(model, xTest, yTest):
 
     return accuracy, misses
 
-def main():
+def trainModel():
     # load dataset into dataframe
     print("Loading datasets")
     xTrain, yTrain = loadDataSet(PATH_TO_DATA + 'adultData')
@@ -128,4 +124,4 @@ def main():
     dumpModelAndEncoders(clf, encoders)
 
 if __name__ == '__main__':
-    main()
+    trainModel()

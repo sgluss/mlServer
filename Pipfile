@@ -1,12 +1,21 @@
 [[source]]
+
 url = "https://pypi.org/simple"
 name = "pypi"
 verify_ssl = true
 
+
 [packages]
+
 flask = "*"
+sklearn = "*"
+pandas = "*"
+
 
 [dev-packages]
 
+
+
 [requires]
+
 python_version = "3.7"
