@@ -125,7 +125,10 @@ def trainModel():
     print("Dumping artifacts to disk")
     dumpModelAndEncoders(clf, encoders)
 
-    print(f"Training complete in {str(time.time() - start)}")
+    elapsed = time.time() - start
+    print(f"Training complete in {elapsed}")
+
+    return accuracy, elapsed
 
 if __name__ == '__main__':
     trainModel()

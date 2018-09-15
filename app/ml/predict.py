@@ -5,6 +5,9 @@ sys.path.append(PATH_TO_HERE + '../')
 
 PATH_TO_ARTIFACTS = PATH_TO_HERE + 'artifacts/'
 
+# persistent classifier
+classifier = None
+
 class ModelService():
     def __init__(self):
         self.model, self.encoders = self.getModelAndEncodersFromFile()
@@ -51,4 +54,5 @@ class ModelService():
         inputVars.iloc[:, 9] = resetNovelValuesAndTransform(inputVars.iloc[:, 9], self.encoders['sex'])
         inputVars.iloc[:, 13] = resetNovelValuesAndTransform(inputVars.iloc[:, 13], self.encoders['country'])
 
-        return self.model.predict(inputVars)
+        prediction = self.model.predict(inputVars)
+        return self.encoders['target'].inverse_transform(prediction)

@@ -9,12 +9,10 @@ from ml import predict
 app = flask.Flask(__name__)
 app.debug = True
 
-# persistent classifier
-classifier = None
-
 def getClassifier():
-    if classifier == None:
-        classifier = predict.ModelService()
+    # init the classifier as needed
+    if predict.classifier == None:
+        predict.classifier = predict.ModelService()
 
 @app.route("/hello", methods=['GET'])
 def hello():
@@ -23,10 +21,12 @@ def hello():
 @app.route("/train", methods=['GET'])
 def train():
     print("Received command to train model")
-    trainModel()
-    return "<h1 style='color:green'>Training Complete!</h1>"
+    accuracy, elapsed = trainModel()
+    return f"""<h1 style='color:green'>Training Complete!</h1>
+           <h2 style='color:green'>Accuracy: {'%.3f'%(accuracy * 100)}%</h2>
+           <h2 style='color:green'>Elapsed Time: {'%.3f'%(elapsed * 1000)} ms</h2>"""
 
-@app.route("/predict", methods=['GET'])
+@app.route("/predict", methods=['POST'])
 def invoke():
     getClassifier()
 
@@ -35,10 +35,11 @@ def invoke():
         data = flask.request.data.decode('utf-8')
         s = StringIO(data)
         data = pd.read_csv(s, header=None)
+        print(data)
     else:
         return flask.Response(response='This predictor only supports CSV data', status=415, mimetype='text/plain')
 
-    prediction = classifier.predict(data)
+    prediction = predict.classifier.predict(data)
 
     out = StringIO()
     pd.DataFrame(prediction).to_csv(out, header=False, index=False)
