@@ -1,7 +1,12 @@
+### To use container, first pull repo
+`git clone https://github.com/sgluss/mlServer.git`
+
 ### To build container
+From repo root:
 `docker build -t app .`
 
 ### To run server
+From repo root:
 `docker run --name app --rm -i -p 8080:8080 -t app`
 
 ### Service Hello World
