@@ -1,4 +1,4 @@
-import os, sys, re, pickle
+import os, re, pickle, time
 
 import pandas as pd
 import numpy as np
@@ -11,7 +11,7 @@ from sklearn import neighbors
 # project dependencies
 PATH_TO_HERE = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
 
-PATH_TO_DATA = PATH_TO_HERE + '../../datasets/'
+PATH_TO_DATA = PATH_TO_HERE + 'datasets/'
 PATH_TO_ARTIFACTS = PATH_TO_HERE + 'artifacts/'
 
 # strip non-essential chars from the target string (in this case, whitespace and a period)
@@ -98,6 +98,8 @@ def evaluate(model, xTest, yTest):
     return accuracy, misses
 
 def trainModel():
+    start = time.time()
+
     # load dataset into dataframe
     print("Loading datasets")
     xTrain, yTrain = loadDataSet(PATH_TO_DATA + 'adultData')
@@ -122,6 +124,8 @@ def trainModel():
     # dump artifacts
     print("Dumping artifacts to disk")
     dumpModelAndEncoders(clf, encoders)
+
+    print(f"Training complete in {str(time.time() - start)}")
 
 if __name__ == '__main__':
     trainModel()

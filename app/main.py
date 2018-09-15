@@ -24,6 +24,7 @@ def hello():
 def train():
     print("Received command to train model")
     trainModel()
+    return "<h1 style='color:green'>Training Complete!</h1>"
 
 @app.route("/predict", methods=['GET'])
 def invoke():
