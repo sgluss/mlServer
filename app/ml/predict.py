@@ -33,6 +33,8 @@ class ModelService():
         except:
             print("Unexpected error: ", sys.exc_info())
 
+    # input - pandas csv of input data
+    # returns predictions as list
     def predict(self, input):
         inputVars = input
 

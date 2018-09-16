@@ -97,6 +97,7 @@ def evaluate(model, xTest, yTest):
 
     return accuracy, misses
 
+# Trains model, generates evaluation, then dumps to disk for persistence
 def trainModel():
     start = time.time()
 
