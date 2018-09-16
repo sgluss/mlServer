@@ -41,6 +41,8 @@ One approach is to use a model that can be trained in parallel on a GPU or a lar
 
 Another possibility is models that can be trained incrementally as new data comes in, which for very large datasets would be a huge advantage (as long as accuracy is not sacrificed).  
 
+Model training can be improved by limiting the number of input variables, or by using fewer data points. This may be achievable without compromising prediction accuracy.  
+
 #### Improve latency (30ms or faster)
 Because the model service is stateless, it is easy to host it in the same datacenter as it's consumer, and scale horizontally to provide a sufficiently fast latency (p99 suffers as the load on the service increases due to requests waiting in the queue).
 
